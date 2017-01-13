@@ -1,0 +1,11 @@
+doctype html
+html(lang="ru")
+  head
+    block title
+      title Default title
+    include base_components/head
+body.load
+  include components/header
+  block content
+  include components/footer
+  include base_components/elements/scripts

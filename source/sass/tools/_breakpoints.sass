@@ -1,0 +1,22 @@
+///To do breakpoints
+@mixin breakpoint($point)
+  @if $point == xs
+    @media (max-width: $xs-screen)
+      @content
+  @if $point == s
+    @media (min-width: $s-screen)
+      @content
+  @else if $point == m
+    @media (min-width: $m-screen)
+      @content
+  @else if $point == l
+    @media (min-width: $l-screen)
+      @content
+  @else if $point == xl
+    @media (min-width: $xl-screen)
+      @content
+  @else if $point == xxl
+    @media (min-width: $xxl-screen)
+      @content
+  @else
+    @warn "Not a valid breakpoint name."
