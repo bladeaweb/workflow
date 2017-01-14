@@ -29,7 +29,7 @@ gulp.task 'sass', ->
       title: "Sass: FAIL"
       message: "Error: <%= error.message %>"
     })
-    .pipe sourcemaps.write('.')
+    .pipe sourcemaps.write()
     .pipe plumber.stop()
     .pipe gulp.dest dev + 'css'
     .pipe notify(
@@ -39,11 +39,12 @@ gulp.task 'sass', ->
 
 gulp.task 'css', ->
   gulp.src dev + 'css/*.css'
-    .pipe sourcemaps.init({loadMaps: true})
+    .pipe gulp.dest prod + 'style'
+#    .pipe sourcemaps.init({loadMaps: true})
 #    .pipe autoprefixer()
     .pipe rename({suffix: '.min'})
     .pipe cssmin()
-    .pipe sourcemaps.write('.')
+#    .pipe sourcemaps.write('.')
     .pipe gulp.dest prod + 'style'
 
 gulp.task 'pug', ->
