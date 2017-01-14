@@ -5,7 +5,7 @@ autoprefixer = require 'gulp-autoprefixer'
 pug = require 'gulp-pug'
 plumber = require 'gulp-plumber'
 sourcemaps = require 'gulp-sourcemaps'
-cssmin = require 'gulp-csso'
+cssmin = require 'gulp-cssnano'
 rename = require 'gulp-rename'
 notify = require 'gulp-notify'
 
@@ -14,7 +14,7 @@ dev = "source/"
 
 gulp.task 'connect', ->
   connect.server
-    port: 3000
+    port: 8008
     livereload: on
     root: './'+prod
 
@@ -23,8 +23,8 @@ gulp.task 'sass', ->
     .pipe plumber()
     .pipe sourcemaps.init()
     .pipe sass(
+      outputStyle: 'expanded'
       errLogToConsole: true
-      sourceComments: 'map'
     ).on "error", notify.onError({
       title: "Sass: FAIL"
       message: "Error: <%= error.message %>"
@@ -41,8 +41,8 @@ gulp.task 'css', ->
   gulp.src dev + 'css/*.css'
     .pipe sourcemaps.init({loadMaps: true})
 #    .pipe autoprefixer()
-    .pipe cssmin()
     .pipe rename({suffix: '.min'})
+    .pipe cssmin()
     .pipe sourcemaps.write('.')
     .pipe gulp.dest prod + 'style'
 
