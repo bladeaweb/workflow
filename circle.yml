@@ -1,11 +1,11 @@
 machine:
+  environment:
+    BUILD_DIR: $HOME/$CIRCLE_PROJECT_REPONAME
   node:
-    version: 9.4.0
-
-dependencies:
-  override:
-    - npm install
+    version: 6.6.0
+  pre:
+  - npm install
 
 test:
   override:
-    - grunt prod
+  - grunt prod
