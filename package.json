@@ -1,6 +1,6 @@
 {
   "name": "workflow",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Workflow for Alexander Sharkov",
   "main": "Gruntfile.js",
   "dependencies": {},
@@ -21,14 +21,17 @@
     "grunt-spritesmith": "^6.6.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "npm run default",
+    "dev": "/Users/blade/GitHub/workflow/node_modules/grunt-cli/bin/grunt dev",
+    "default": "/Users/blade/GitHub/workflow/node_modules/grunt-cli/bin/grunt",
+    "prod": "/Users/blade/GitHub/workflow/node_modules/grunt-cli/bin/grunt prod"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bladeaweb/workflow.git"
   },
   "author": "Alexander Sharkov",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bladeaweb/workflow/issues"
   },
