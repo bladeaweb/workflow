@@ -8,8 +8,10 @@
  */
 
 /* global module */
-var prod = 'production/';
-var dev = 'source/';
+var prod = 'production/',
+    dev = 'source/';
+    serverPort = 3088;
+
 module.exports = function (grunt) {
   'use strict';
   grunt.initConfig({
@@ -20,13 +22,13 @@ module.exports = function (grunt) {
         max_jshint_notifications: 5,
         success: true,
         duration: 3,
-        title: "Grunt compilation"
+        title: "Grunt:"
       }
     },
     connect: {
       server: {
         options: {
-          port: 3088,
+          port: serverPort,
           base: prod
         }
       }
@@ -45,7 +47,7 @@ module.exports = function (grunt) {
         src: [dev + 'sprite/png/*.png'],
         dest: prod + 'img/sprite.png',
         destCss: dev + 'sass/components/_sprite-png.scss'
-      },
+      }
     },
     sass_globbing: {
       dev: {
@@ -80,28 +82,12 @@ module.exports = function (grunt) {
     uglify: {
       prod: {
         options: {
-          mangle: {
-            except: ['jQuery']
-          },
           compress: {
             drop_console: true
           }
         },
         files: {
-          [prod + 'js/ie.min.js']: [prod + 'js/ie.min.js']
-        }
-      },
-      dev: {
-        options: {
-          mangle: {
-            except: ['jQuery', 'Drupal']
-          },
-          compress: {
-            drop_console: false
-          }
-        },
-        files: {
-          [prod + 'js/style.min.js']: [prod + 'js/style.min.js']
+           [prod + 'js/script.min.js']: [prod + 'js/script.min.js']
         }
       }
     },
@@ -131,6 +117,15 @@ module.exports = function (grunt) {
           sourceMap: false,
           outputStyle: 'compressed'
         }
+      }
+    },
+    autoprefixer: {
+      options: {
+        browsers: ['last 2 versions'],
+        map: false
+      },
+      multiple_files: {
+        src: prod + 'style/*.css'
       }
     },
     pug: {
@@ -184,37 +179,43 @@ module.exports = function (grunt) {
         dest: prod
       }
     },
+    imagemin: {
+      options: {
+        cache: false
+      },
+      dynamic: {
+        files: [{
+          expand: true,
+          cwd: dev + 'img/',
+          src: ['*.{png,jpg,gif}'],
+          dest: prod + 'img/'
+        }]
+      }
+    },
     watch: {
       options: {
+        spawn: false,
         livereload: true
+      },
+      imageopti: {
+        files: [dev + 'img/*.{png,jpg,gif}'],
+        tasks: ['imagemin:dynamic']
       },
       scripts: {
         files: [dev + 'js/*.js'],
-        tasks: ['clean:js', 'concat:dist', 'uglify:dev'],
-        options: {
-          spawn: false
-        }
+        tasks: ['clean:js', 'concat:dist']
       },
       pug: {
         files: [dev + 'pug/*.pug', 'prettify:all'],
-        tasks: ['pug:dev', 'prettify:all'],
-        options: {
-          spawn: false
-        }
+        tasks: ['pug:dev', 'prettify:all']
       },
       sprite: {
-        files: [dev + 'sprite/*/*.{png,jpg}'],
-        tasks: ['sprite'],
-        options: {
-          spawn: false
-        }
+        files: [dev + 'sprite/*/*.{png}'],
+        tasks: ['sprite']
       },
       styles: {
         files: [dev + 'sass/*.{scss,sass}', dev + 'sass/**/*.{scss,sass}'],
-        tasks: ['sass_globbing', 'sass:dev'],
-        options: {
-          spawn: false
-        }
+        tasks: ['sass_globbing', 'sass:dev']
       }
     }
   });
@@ -231,12 +232,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-prettify');
   grunt.loadNpmTasks('grunt-spritesmith');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-autoprefixer');
 
   grunt.task.run('notify_hooks');
 
-  grunt.registerTask('prod', ['clean:js', 'sprite', 'sass_globbing', 'concat:dist', 'uglify:prod', 'sass:prod', 'pug:prod', 'prettify:all']);
+  grunt.registerTask('prod', ['clean:js', 'sprite', 'imagemin', 'sass_globbing', 'concat:dist', 'autoprefixer', 'uglify:prod', 'sass:prod', 'pug:prod', 'prettify:all']);
   // By default, run grunt with dev settings for developing.
-  grunt.registerTask('default', ['clean:js', 'sprite', 'sass_globbing', 'concat:dist', 'uglify:dev', 'sass:dev', 'pug:prod', 'prettify:all']);
+  grunt.registerTask('default', ['clean:js', 'sprite', 'imagemin', 'sass_globbing', 'concat:dist', 'sass:dev', 'pug:prod', 'prettify:all']);
   // For develop
-  grunt.registerTask('dev', ['connect:server', 'watch']);
+  grunt.registerTask('dev', ['connect', 'watch']);
 };
