@@ -1,0 +1,11 @@
+machine:
+  node:
+    version: 9.4.0
+
+dependencies:
+  override:
+    - npm install --dev
+
+test:
+  override:
+    - grunt
