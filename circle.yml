@@ -1,11 +1,11 @@
 machine:
   node:
     version: 9.4.0
-  environment:
-      BUILD_DIR: $HOME/$CIRCLE_PROJECT_REPONAME
-      DOCROOT_DIR: $BUILD_DIR
 
 dependencies:
-    override:
-        - npm install:
-            timeout: 600
+  override:
+    - npm install --dev
+
+test:
+  override:
+    - grunt
