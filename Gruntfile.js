@@ -80,28 +80,22 @@ module.exports = function (grunt) {
     uglify: {
       prod: {
         options: {
-          mangle: {
-            except: ['jQuery']
-          },
           compress: {
             drop_console: true
           }
         },
         files: {
-          [prod + 'js/ie.min.js']: [prod + 'js/ie.min.js']
+          [prod + 'js/script.min.js']: [prod + 'js/script.min.js']
         }
       },
       dev: {
         options: {
-          mangle: {
-            except: ['jQuery', 'Drupal']
-          },
           compress: {
             drop_console: false
           }
         },
         files: {
-          [prod + 'js/style.min.js']: [prod + 'js/style.min.js']
+          [prod + 'js/script.min.js']: [prod + 'js/script.min.js']
         }
       }
     },
