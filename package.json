@@ -24,9 +24,9 @@
   },
   "scripts": {
     "postinstall": "npm run default",
-    "dev": "/Users/blade/GitHub/workflow/node_modules/grunt-cli/bin/grunt dev",
-    "default": "/Users/blade/GitHub/workflow/node_modules/grunt-cli/bin/grunt",
-    "prod": "/Users/blade/GitHub/workflow/node_modules/grunt-cli/bin/grunt prod"
+    "dev": "node_modules/grunt-cli/bin/grunt dev",
+    "default": "node_modules/grunt-cli/bin/grunt",
+    "prod": "node_modules/grunt-cli/bin/grunt prod"
   },
   "repository": {
     "type": "git",
