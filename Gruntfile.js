@@ -206,7 +206,7 @@ module.exports = function (grunt) {
         tasks: ['clean:js', 'concat:dist']
       },
       pug: {
-        files: [dev + 'pug/*.pug', 'prettify:all'],
+        files: [dev + 'pug/*.pug', dev + 'pug/*/*.pug', dev + 'pug/**/*.pug'],
         tasks: ['pug:dev', 'prettify:all']
       },
       sprite: {
