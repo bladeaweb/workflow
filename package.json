@@ -4,6 +4,7 @@
   "description": "Workflow for Alexander Sharkov",
   "main": "Gruntfile.js",
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "normalize-scss": "^7.0.1"
   },
   "devDependencies": {

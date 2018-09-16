@@ -9,7 +9,8 @@
 
 /* global module */
 var prod = 'production/',
-    dev = 'source/';
+    dev = 'source/',
+    bootstrap = 'node_modules/bootstrap/';
     serverPort = 3088;
 
 const sass = require('node-sass');
@@ -75,6 +76,7 @@ module.exports = function (grunt) {
       },
       dist: {
         src: [
+          bootstrap + 'dist/js/bootstrap.min.js',
           dev + 'js/*.js',
           dev + 'js/**/*.js'
         ],
