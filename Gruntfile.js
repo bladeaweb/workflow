@@ -12,6 +12,8 @@ var prod = 'production/',
     dev = 'source/';
     serverPort = 3088;
 
+const sass = require('node-sass');
+
 module.exports = function (grunt) {
   'use strict';
   grunt.initConfig({
@@ -52,14 +54,14 @@ module.exports = function (grunt) {
     sass_globbing: {
       dev: {
         files: {
-          [dev + 'sass/base/index.sass']: [dev + 'sass/base/_*.{scss,sass}'],
-          [dev + 'sass/components/index.sass']: [dev + 'sass/components/_*.{scss,sass}'],
-          [dev + 'sass/fixes/index.sass']: [dev + 'sass/fixes/_*.{scss,sass}'],
-          [dev + 'sass/layouts/index.sass']: [dev + 'sass/layouts/_*.{scss,sass}'],
-          [dev + 'sass/pages/index.sass']: [dev + 'sass/pages/_*.{scss,sass}'],
-          [dev + 'sass/tools/index.sass']: [dev + 'sass/tools/_*.{scss,sass}'],
-          [dev + 'sass/variables/index.sass']: [dev + 'sass/variables/_*.{scss,sass}'],
-          [dev + 'sass/vendors/index.sass']: [dev + 'sass/vendors/_*.{scss,sass}']
+          [dev + 'sass/base/index.scss']: [dev + 'sass/base/_*.{scss,sass}'],
+          [dev + 'sass/components/index.scss']: [dev + 'sass/components/_*.{scss,sass}'],
+          [dev + 'sass/fixes/index.scss']: [dev + 'sass/fixes/_*.{scss,sass}'],
+          [dev + 'sass/layouts/index.scss']: [dev + 'sass/layouts/_*.{scss,sass}'],
+          [dev + 'sass/pages/index.scss']: [dev + 'sass/pages/_*.{scss,sass}'],
+          [dev + 'sass/tools/index.scss']: [dev + 'sass/tools/_*.{scss,sass}'],
+          [dev + 'sass/variables/index.scss']: [dev + 'sass/variables/_*.{scss,sass}'],
+          [dev + 'sass/vendors/index.scss']: [dev + 'sass/vendors/_*.{scss,sass}']
         },
         options: {
           useSingleQuotes: true,
@@ -101,6 +103,7 @@ module.exports = function (grunt) {
           ext: '.min.css'
         }],
         options: {
+          implementation: sass,
           sourceMap: true,
           outputStyle: 'expanded'
         }
@@ -114,6 +117,7 @@ module.exports = function (grunt) {
           ext: '.min.css'
         }],
         options: {
+          implementation: sass,
           sourceMap: false,
           outputStyle: 'compressed'
         }
